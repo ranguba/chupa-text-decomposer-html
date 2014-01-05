@@ -22,6 +22,6 @@ gemspec
 
 base_dir = File.dirname(__FILE__)
 local_chupa_text_dir = File.join(base_dir, "..", "chupa-text")
-if File.exsit?(local_chupa_text_dir)
+if File.exist?(local_chupa_text_dir)
   gem "chupa-text", :path => local_chupa_text_dir
 end
