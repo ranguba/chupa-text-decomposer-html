@@ -17,8 +17,6 @@
 require "nkf"
 require "nokogiri"
 
-require "chupa-text"
-
 module ChupaText
   module Decomposers
     class HTML < Decomposer
@@ -36,21 +34,19 @@ module ChupaText
 
       def decompose(data)
         html = data.body
-        decomposed_data = Data.new
         doc = Nokogiri::HTML.parse(html, nil, guess_encoding(html))
-        title_element = (doc % "head/title")
-        decomposed_data["title"] = title_element.text if title_element
-        encoding = doc.encoding
-        decomposed_data["encoding"] = encoding if encoding
         body_element = (doc % "body")
         if body_element
           body = body_element.text.gsub(/^\s+|\s+$/, '')
         else
           body = ""
         end
-        decomposed_data.body = body
-        decomposed_data.mime_type = "text/plain"
+        decomposed_data = TextData.new(body)
         decomposed_data.uri = data.uri
+        title_element = (doc % "head/title")
+        decomposed_data["title"] = title_element.text if title_element
+        encoding = doc.encoding
+        decomposed_data["encoding"] = encoding if encoding
         yield(decomposed_data)
       end
 
