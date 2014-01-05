@@ -18,16 +18,10 @@
 
 $VERBOSE = true
 
-require "pathname"
+require "bundler/setup"
 
 require "test-unit"
 
-base_dir = Pathname(__FILE__).dirname.parent
-lib_dir = base_dir + "lib"
-$LOAD_PATH.unshift(lib_dir.to_s)
-
-chupa_text_lib_dir = base_dir.parent + "chupa-text" + "lib"
-$LOAD_PATH.unshift(chupa_text_lib_dir.to_s)
 require "chupa-text"
 
 ChupaText::Decomposers.load
