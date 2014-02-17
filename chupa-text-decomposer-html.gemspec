@@ -1,6 +1,6 @@
 # -*- mode: ruby; coding: utf-8 -*-
 #
-# Copyright (C) 2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2013-2014  Kouhei Sutou <kou@clear-code.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ end
 
 Gem::Specification.new do |spec|
   spec.name = "chupa-text-decomposer-html"
-  spec.version = "1.0.1"
+  spec.version = "1.0.2"
   spec.homepage = "https://github.com/ranguba/chupa-text-decomposer-html"
   spec.authors = ["Kouhei Sutou"]
   spec.email = ["kou@clear-code.com"]
