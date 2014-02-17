@@ -1,4 +1,4 @@
-# Copyright (C) 2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2013-2014  Kouhei Sutou <kou@clear-code.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -143,7 +143,7 @@ class TestHTML < Test::Unit::TestCase
   <body>Hello</body>
 </html>
           HTML
-          assert_equal(["US-ASCII"], decompose(@data))
+          assert_equal([Encoding::US_ASCII], decompose(@data))
         end
 
         def test_xml_declaration
@@ -155,7 +155,7 @@ class TestHTML < Test::Unit::TestCase
   <body>Hello</body>
 </html>
           XHTML
-          assert_equal(["Shift_JIS"], decompose(@data))
+          assert_equal([Encoding::Shift_JIS], decompose(@data))
         end
 
         def test_content_type
@@ -167,7 +167,7 @@ class TestHTML < Test::Unit::TestCase
   <body>Hello</body>
 </html>
           HTML
-          assert_equal(["EUC-JP"], decompose(@data))
+          assert_equal([Encoding::EUC_JP], decompose(@data))
         end
 
         def test_meta_charset
@@ -179,7 +179,7 @@ class TestHTML < Test::Unit::TestCase
   <body>Hello</body>
 </html>
           HTML5
-          assert_equal(["EUC-JP"], decompose(@data))
+          assert_equal([Encoding::EUC_JP], decompose(@data))
         end
       end
 
@@ -197,15 +197,15 @@ class TestHTML < Test::Unit::TestCase
         end
 
         def test_x_sjis
-          assert_equal(["Windows-31J"], decompose("x-sjis"))
+          assert_equal([Encoding::WINDOWS_31J], decompose("x-sjis"))
         end
 
         def test_shift_jis_hyphen
-          assert_equal(["Windows-31J"], decompose("Shift-JIS"))
+          assert_equal([Encoding::WINDOWS_31J], decompose("Shift-JIS"))
         end
 
         def test_shift_jis_under_score
-          assert_equal(["Windows-31J"], decompose("Shift_JIS"))
+          assert_equal([Encoding::WINDOWS_31J], decompose("Shift_JIS"))
         end
       end
     end
