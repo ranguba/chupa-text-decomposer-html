@@ -43,10 +43,13 @@ module ChupaText
         end
         decomposed_data = TextData.new(body)
         decomposed_data.uri = data.uri
+
+        attributes = decomposed_data.attributes
         title_element = (doc % "head/title")
-        decomposed_data["title"] = title_element.text if title_element
+        attributes.title = title_element.text if title_element
         encoding = doc.encoding
-        decomposed_data["encoding"] = encoding if encoding
+        attributes.encoding = encoding if encoding
+
         yield(decomposed_data)
       end
 
