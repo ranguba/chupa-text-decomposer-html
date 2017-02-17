@@ -1,4 +1,4 @@
-# Copyright (C) 2013  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2013-2017  Kouhei Sutou <kou@clear-code.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -41,8 +41,10 @@ module ChupaText
         else
           body = ""
         end
-        decomposed_data = TextData.new(body)
-        decomposed_data.uri = data.uri
+        decomposed_data = data.dup
+        decomposed_data.body = body
+        decomposed_data.size = body.bytesize
+        decomposed_data.mime_type = "text/plain"
 
         attributes = decomposed_data.attributes
         title_element = (doc % "head/title")
