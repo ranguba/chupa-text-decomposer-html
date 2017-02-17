@@ -41,10 +41,11 @@ module ChupaText
         else
           body = ""
         end
-        decomposed_data = data.dup
-        decomposed_data.body = body
-        decomposed_data.size = body.bytesize
-        decomposed_data.mime_type = "text/plain"
+        decomposed_data = TextData.new(body)
+        decomposed_data.uri = data.uri
+        data.attributes.each do |name, value|
+          decomposed_data[name] = value
+        end
 
         attributes = decomposed_data.attributes
         title_element = (doc % "head/title")
