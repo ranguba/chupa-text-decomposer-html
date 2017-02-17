@@ -52,6 +52,7 @@ module ChupaText
         attributes.title = title_element.text if title_element
         encoding = doc.encoding
         attributes.encoding = encoding if encoding
+        attributes["original-mime-type"] = "text/html"
 
         yield(decomposed_data)
       end
