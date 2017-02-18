@@ -41,12 +41,7 @@ module ChupaText
         else
           body = ""
         end
-        decomposed_data = TextData.new(body)
-        decomposed_data.uri = data.uri
-        data.attributes.each do |name, value|
-          decomposed_data[name] = value
-        end
-
+        decomposed_data = TextData.new(body, :source_data => data)
         attributes = decomposed_data.attributes
         title_element = (doc % "head/title")
         attributes.title = title_element.text if title_element
