@@ -53,6 +53,10 @@ module ChupaText
 
       private
       def guess_encoding(text)
+        unless text.encoding.ascii_compatible?
+          return text.encoding.name
+        end
+
         case text
         when /\A<\?xml.+?encoding=(['"])([a-zA-Z0-9_-]+)\1/
           $2

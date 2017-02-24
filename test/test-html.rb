@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2014  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2013-2017  Kouhei Sutou <kou@clear-code.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -180,6 +180,32 @@ class TestHTML < Test::Unit::TestCase
 </html>
           HTML5
           assert_equal([Encoding::EUC_JP], decompose(@data))
+        end
+
+        sub_test_case("not ascii_compatible?") do
+          def test_iso_2022_jp
+            @data.body = <<-ISO_2022_JP_HTML.encode("ISO-2022-JP")
+<html>
+  <head>
+    <title>タイトル</title>
+  </head>
+  <body>Hello</body>
+</html>
+            ISO_2022_JP_HTML
+            assert_equal([Encoding::ISO_2022_JP], decompose(@data))
+          end
+
+          def test_utf32
+            @data.body = <<-UTF_32_HTML.encode("UTF-32")
+<html>
+  <head>
+    <title>タイトル</title>
+  </head>
+  <body>Hello</body>
+</html>
+            UTF_32_HTML
+            assert_equal([Encoding::UTF_32], decompose(@data))
+          end
         end
       end
 
