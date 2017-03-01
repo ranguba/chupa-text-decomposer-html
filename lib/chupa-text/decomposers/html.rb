@@ -74,7 +74,11 @@ module ChupaText
           charset = $2
           normalize_charset(charset)
         else
-          guess_encoding_nkf(text)
+          if text.encoding != Encoding::ASCII_8BIT and text.valid_encoding?
+            text.encoding.to_s
+          else
+            guess_encoding_nkf(text)
+          end
         end
       end
 

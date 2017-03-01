@@ -138,12 +138,12 @@ class TestHTML < Test::Unit::TestCase
 
       sub_test_case("detect") do
         def test_nothing
-          @data.body = <<-HTML
+          @data.body = <<-HTML.force_encoding("UTF-8")
 <html>
   <body>Hello</body>
 </html>
           HTML
-          assert_equal([Encoding::US_ASCII], decompose(@data))
+          assert_equal([Encoding::UTF_8], decompose(@data))
         end
 
         def test_xml_declaration
@@ -195,7 +195,7 @@ class TestHTML < Test::Unit::TestCase
             assert_equal([Encoding::ISO_2022_JP], decompose(@data))
           end
 
-          def test_utf32
+          def test_utf_32
             @data.body = <<-UTF_32_HTML.encode("UTF-32")
 <html>
   <head>
@@ -205,6 +205,18 @@ class TestHTML < Test::Unit::TestCase
 </html>
             UTF_32_HTML
             assert_equal([Encoding::UTF_32], decompose(@data))
+          end
+
+          def test_koi8_r
+            @data.body = <<-KOI8_R_HTML.encode("KOI8-R")
+<html>
+  <head>
+    <title>название</title>
+  </head>
+  <body>Hello</body>
+</html>
+            KOI8_R_HTML
+            assert_equal([Encoding::KOI8_R], decompose(@data))
           end
         end
       end
