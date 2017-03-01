@@ -37,7 +37,7 @@ module ChupaText
         doc = Nokogiri::HTML.parse(html, nil, guess_encoding(html))
         body_element = (doc % "body")
         if body_element
-          body = body_element.text.gsub(/^\s+|\s+$/, '')
+          body = body_element.text.scrub.gsub(/^\s+|\s+$/, '')
         else
           body = ""
         end
