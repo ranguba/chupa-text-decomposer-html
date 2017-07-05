@@ -34,7 +34,7 @@ end
 helper.install
 spec = helper.gemspec
 
-Packnga::DocumentTask.new(spec) do
+Packnga::DocumentTask.new(spec) do |task|
   task.original_language = "en"
   task.translate_language = "ja"
 end
