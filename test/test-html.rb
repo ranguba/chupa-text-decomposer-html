@@ -51,6 +51,12 @@ class TestHTML < Test::Unit::TestCase
       def test_txt
         assert_false(@decomposer.target?(create_data("index.txt")))
       end
+
+      def test_php
+        assert do
+          not @decomposer.target?(create_data("index.php"))
+        end
+      end
     end
 
     sub_test_case("mime-type") do
@@ -70,6 +76,26 @@ class TestHTML < Test::Unit::TestCase
 
       def test_txt
         assert_false(@decomposer.target?(create_data("text/plain")))
+      end
+    end
+
+    sub_test_case("content") do
+      def create_data(body)
+        data = ChupaText::Data.new
+        data.body = body
+        data
+      end
+
+      def test_doctype_html
+        assert do
+          @decomposer.target?(create_data("<!DOCTYPE html "))
+        end
+      end
+
+      def test_html
+        assert do
+          @decomposer.target?(create_data("<html"))
+        end
       end
     end
   end

@@ -28,8 +28,16 @@ module ChupaText
         "application/xhtml+xml",
       ]
       def target?(data)
-        TARGET_EXTENSIONS.include?(data.extension) or
-          TARGET_MIME_TYPES.include?(data.mime_type)
+        return true if TARGET_EXTENSIONS.include?(data.extension)
+        return true if TARGET_MIME_TYPES.include?(data.mime_type)
+
+        body = data.body
+        return false if body.nil?
+
+        return true if body.start_with?("<!DOCTYPE html ")
+        return true if body.start_with?("<html")
+
+        false
       end
 
       def decompose(data)
