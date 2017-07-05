@@ -404,6 +404,58 @@ class TestHTML < Test::Unit::TestCase
                        decompose(@data))
         end
       end
+
+      sub_test_case("navigation") do
+        def test_nav_tag
+          @data.body = <<-HTML
+<html>
+  <body>Before<nav>nav</nav>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_nav_class
+          @data.body = <<-HTML
+<html>
+  <body>Before<div class="nav">nav</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_menu_class
+          @data.body = <<-HTML
+<html>
+  <body>Before<div class="menu">nav</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_nav_id
+          @data.body = <<-HTML
+<html>
+  <body>Before<div id="nav">nav</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_menu_id
+          @data.body = <<-HTML
+<html>
+  <body>Before<div id="menu">nav</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+      end
     end
   end
 end

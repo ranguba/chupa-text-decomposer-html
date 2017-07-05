@@ -111,6 +111,7 @@ module ChupaText
         return text if noindex_element?(element, name, classes)
         return text if header_element?(element, name, classes)
         return text if footer_element?(element, name, classes)
+        return text if navigation_element?(element, name, classes)
 
         element.children.each do |child|
           case child
@@ -176,6 +177,27 @@ module ChupaText
 
         case element["id"]
         when "footer"
+          return true
+        end
+
+        false
+      end
+
+      def navigation_element?(element, name, classes)
+        case name
+        when "nav"
+          return true
+        end
+
+        classes.each do |klass|
+          case klass
+          when "nav", "menu"
+            return true
+          end
+        end
+
+        case element["id"]
+        when "nav", "menu"
           return true
         end
 
