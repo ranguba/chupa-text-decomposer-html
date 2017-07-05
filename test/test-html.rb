@@ -273,5 +273,137 @@ class TestHTML < Test::Unit::TestCase
         end
       end
     end
+
+    sub_test_case("body") do
+      def normalize_decomposed_data(decomposed_data)
+        decomposed_data.body
+      end
+
+      sub_test_case("noindex") do
+        def test_script
+          @data.body = <<-HTML
+<html>
+  <body>Before<script>var x;</script>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_noscript
+          @data.body = <<-HTML
+<html>
+  <body>Before<noscript>Enable JavaScript!</noscript>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_link
+          @data.body = <<-HTML
+<html>
+  <body>Before<link rel="stylehseet">After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_style
+          @data.body = <<-HTML
+<html>
+  <body>Before<style>a {color: "red";}</style>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_noindex
+          @data.body = <<-HTML
+<html>
+  <body>Before<div class="noindex">header</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_robots_noindex
+          @data.body = <<-HTML
+<html>
+  <body>Before<div class="robots-noindex">header</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+      end
+
+      sub_test_case("header") do
+        def test_tag
+          @data.body = <<-HTML
+<html>
+  <body>Before<header>header</header>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_class
+          @data.body = <<-HTML
+<html>
+  <body>Before<div class="header">header</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_id
+          @data.body = <<-HTML
+<html>
+  <body>Before<div id="header">header</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+      end
+
+      sub_test_case("footer") do
+        def test_tag
+          @data.body = <<-HTML
+<html>
+  <body>Before<footer>footer</footer>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_class
+          @data.body = <<-HTML
+<html>
+  <body>Before<div class="footer">footer</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_id
+          @data.body = <<-HTML
+<html>
+  <body>Before<div id="footer">footer</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+      end
+    end
   end
 end

@@ -45,7 +45,7 @@ module ChupaText
         doc = Nokogiri::HTML.parse(html, nil, guess_encoding(html))
         body_element = (doc % "body")
         if body_element
-          body = body_element.text.scrub.gsub(/^\s+|\s+$/, '')
+          body = extract_text(body_element, "").scrub.gsub(/^\s+|\s+$/, '')
         else
           body = ""
         end
@@ -103,6 +103,83 @@ module ChupaText
 
       def guess_encoding_nkf(text)
         NKF.guess(text).name
+      end
+
+      def extract_text(element, text)
+        name = element.name.downcase
+        classes = (element["class"] || "").split
+        return text if noindex_element?(element, name, classes)
+        return text if header_element?(element, name, classes)
+        return text if footer_element?(element, name, classes)
+
+        element.children.each do |child|
+          case child
+          when Nokogiri::XML::Text
+            text << child.text
+          when Nokogiri::XML::Element
+            extract_text(child, text)
+          end
+        end
+
+        text
+      end
+
+      def noindex_element?(element, name, classes)
+        case name
+        when "script", "noscript", "link", "style"
+          return true
+        end
+
+        classes.each do |klass|
+          case klass
+          when "noindex", "robots-noindex"
+            return true
+          end
+        end
+
+        false
+      end
+
+      def header_element?(element, name, classes)
+        case name
+        when "header", "nav"
+          return true
+        end
+
+        classes.each do |klass|
+          case klass
+          when "header"
+            return true
+          end
+        end
+
+        case element["id"]
+        when "header"
+          return true
+        end
+
+        false
+      end
+
+      def footer_element?(element, name, classes)
+        case name
+        when "footer"
+          return true
+        end
+
+        classes.each do |klass|
+          case klass
+          when "footer"
+            return true
+          end
+        end
+
+        case element["id"]
+        when "footer"
+          return true
+        end
+
+        false
       end
     end
   end
