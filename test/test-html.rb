@@ -28,6 +28,30 @@ class TestHTML < Test::Unit::TestCase
   end
 
   sub_test_case("target?") do
+    sub_test_case("source-mime-type") do
+      def create_data(uri, mime_type)
+        data = ChupaText::Data.new
+        data.body = ""
+        data.uri = uri
+        data["source-mime-types"] = [mime_type]
+        data
+      end
+
+      def test_text_html
+        data = create_data("index.html", "text/html")
+        assert do
+          not @decomposer.target?(data)
+        end
+      end
+
+      def test_application_xhtml_xml
+        data = create_data("index.html", "application/xhtml+xml")
+        assert do
+          not @decomposer.target?(data)
+        end
+      end
+    end
+
     sub_test_case("extension") do
       def create_data(uri)
         data = ChupaText::Data.new

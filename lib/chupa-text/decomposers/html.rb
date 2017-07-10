@@ -28,6 +28,10 @@ module ChupaText
         "application/xhtml+xml",
       ]
       def target?(data)
+        (data["source-mime-types"] || []).each do |source_mime_type|
+          return false if TARGET_MIME_TYPES.include?(source_mime_type)
+        end
+
         return true if TARGET_EXTENSIONS.include?(data.extension)
         return true if TARGET_MIME_TYPES.include?(data.mime_type)
 
