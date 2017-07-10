@@ -436,6 +436,23 @@ class TestHTML < Test::Unit::TestCase
                        decompose(@data))
         end
 
+        def test_topic_path_class
+          @data.body = <<-HTML
+<html>
+  <body>
+    Before
+    <div class="topic-path">topic-path</div>
+    <div class="topic_path">topic_path</div>
+    <div class="topicpath">topicpath</div>
+    <div class="TopicPath">TopicPath</div>
+    After
+  </body>
+</html>
+          HTML
+          assert_equal(["Before\nAfter"],
+                       decompose(@data))
+        end
+
         def test_nav_id
           @data.body = <<-HTML
 <html>
@@ -453,6 +470,23 @@ class TestHTML < Test::Unit::TestCase
 </html>
           HTML
           assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_topic_path_id
+          @data.body = <<-HTML
+<html>
+  <body>
+    Before
+    <div id="topic-path">topic-path</div>
+    <div id="topic_path">topic_path</div>
+    <div id="topicpath">topicpath</div>
+    <div id="TopicPath">TopicPath</div>
+    After
+  </body>
+</html>
+          HTML
+          assert_equal(["Before\nAfter"],
                        decompose(@data))
         end
       end

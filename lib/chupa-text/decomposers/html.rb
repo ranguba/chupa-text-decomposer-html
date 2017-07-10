@@ -143,7 +143,7 @@ module ChupaText
 
       def header_element?(element, name, classes)
         case name
-        when "header", "nav"
+        when "header"
           return true
         end
 
@@ -191,13 +191,13 @@ module ChupaText
 
         classes.each do |klass|
           case klass
-          when "nav", "menu"
+          when "nav", "menu", /\Atopic[-_]?path\z/i
             return true
           end
         end
 
         case element["id"]
-        when "nav", "menu"
+        when "nav", "menu", /\Atopic[-_]?path\z/i
           return true
         end
 
