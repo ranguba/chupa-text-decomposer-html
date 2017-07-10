@@ -112,6 +112,7 @@ module ChupaText
         return text if header_element?(element, name, classes)
         return text if footer_element?(element, name, classes)
         return text if navigation_element?(element, name, classes)
+        return text if aside_element?(element, name, classes)
 
         element.children.each do |child|
           case child
@@ -198,6 +199,27 @@ module ChupaText
 
         case element["id"]
         when "nav", "menu", /\Atopic[-_]?path\z/i
+          return true
+        end
+
+        false
+      end
+
+      def aside_element?(element, name, classes)
+        case name
+        when "aside"
+          return true
+        end
+
+        classes.each do |klass|
+          case klass
+          when "aside"
+            return true
+          end
+        end
+
+        case element["id"]
+        when "aside"
           return true
         end
 

@@ -490,6 +490,38 @@ class TestHTML < Test::Unit::TestCase
                        decompose(@data))
         end
       end
+
+      sub_test_case("aside") do
+        def test_aside_tag
+          @data.body = <<-HTML
+<html>
+  <body>Before<aside>aside</aside>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_aside_class
+          @data.body = <<-HTML
+<html>
+  <body>Before<div class="aside">aside</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+
+        def test_aside_id
+          @data.body = <<-HTML
+<html>
+  <body>Before<div id="aside">aside</div>After</body>
+</html>
+          HTML
+          assert_equal(["BeforeAfter"],
+                       decompose(@data))
+        end
+      end
     end
   end
 end
