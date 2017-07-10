@@ -1,14 +1,26 @@
 # News
 
+## 1.0.3: 2017-07-10
+
+### Improvements
+
+  * Supported ignoring topic path content.
+
+  * Supported ignoring aside content.
+
+### Fixes
+
+  * Fixed a infinite loop bug.
+
 ## 1.0.2: 2017-07-05
 
-  * Support content based HTML detection.
+  * Supported content based HTML detection.
 
-  * Ignore common contents.
+  * Supported ignoring common contents.
 
 ## 1.0.1: 2014-02-18
 
-  * Support chupa-text 1.0.4.
+  * Supported chupa-text 1.0.4.
 
 ## 1.0.0: 2014-01-05
 
