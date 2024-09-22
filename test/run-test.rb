@@ -26,4 +26,4 @@ require "chupa-text"
 
 ChupaText::Decomposers.load
 
-exit(Test::Unit::AutoRunner.run(true))
+exit(Test::Unit::AutoRunner.run(true, __dir__))
