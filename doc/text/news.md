@@ -1,5 +1,11 @@
 # News
 
+## 1.0.4: 2024-09-22
+
+### Improvements
+
+  * Removed NKF dependency.
+
 ## 1.0.3: 2017-07-10
 
 ### Improvements
