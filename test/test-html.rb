@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2017  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2013-2024  Sutou Kouhei <kou@clear-code.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -188,7 +188,7 @@ class TestHTML < Test::Unit::TestCase
 
       sub_test_case("detect") do
         def test_nothing
-          @data.body = <<-HTML.force_encoding("UTF-8")
+          @data.body = <<-HTML.dup.force_encoding("UTF-8")
 <html>
   <body>Hello</body>
 </html>
