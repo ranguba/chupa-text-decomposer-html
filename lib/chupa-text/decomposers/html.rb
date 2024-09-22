@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2017  Kouhei Sutou <kou@clear-code.com>
+# Copyright (C) 2013-2024  Sutou Kouhei <kou@clear-code.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -14,7 +14,6 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-require "nkf"
 require "nokogiri"
 
 module ChupaText
@@ -89,7 +88,7 @@ module ChupaText
           if text.encoding != Encoding::ASCII_8BIT and text.valid_encoding?
             text.encoding.to_s
           else
-            guess_encoding_nkf(text)
+            guess_encoding_heuristic(text)
           end
         end
       end
@@ -105,8 +104,22 @@ module ChupaText
         end
       end
 
-      def guess_encoding_nkf(text)
-        NKF.guess(text).name
+      def guess_encoding_heuristic(text)
+        candidates = [
+          Encoding::EUC_JP,
+          Encoding::WINDOWS_31J,
+          Encoding::UTF16_BE,
+          Encoding::UTF16_LE,
+        ]
+        candidates.each do |candidate|
+          begin
+            text.encode(Encoding::UTF_8, candidate)
+          rescue EncodingError
+          else
+            return candidate.name
+          end
+        end
+        "UTF-8"
       end
 
       def extract_text(element, text)
