@@ -108,8 +108,8 @@ module ChupaText
         candidates = [
           Encoding::EUC_JP,
           Encoding::WINDOWS_31J,
-          Encoding::UTF16_BE,
-          Encoding::UTF16_LE,
+          Encoding::UTF_16BE,
+          Encoding::UTF_16LE,
         ]
         candidates.each do |candidate|
           begin
