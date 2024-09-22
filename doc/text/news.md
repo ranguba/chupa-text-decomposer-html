@@ -1,5 +1,11 @@
 # News
 
+## 1.0.5: 2024-09-22
+
+### Fixes
+
+  * Fixed typos.
+
 ## 1.0.4: 2024-09-22
 
 ### Improvements
