@@ -30,7 +30,7 @@ jobs:
           - "3.2"
           - "3.3"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install dependencies to build gems
         run: |
           sudo apt update
