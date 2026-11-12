@@ -1,5 +1,13 @@
 # News
 
+## 1.0.6: 2026-11-12
+
+### Fixes
+
+  * Fixed a bug that `Encoding::CompatibilityError` is raised on
+    detecting target with ASCII incompatible encoding body such as
+    ISO-2022-JP.
+
 ## 1.0.5: 2024-09-22
 
 ### Fixes
