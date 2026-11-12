@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2024  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2013-2026  Sutou Kouhei <kou@clear-code.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -119,6 +119,26 @@ class TestHTML < Test::Unit::TestCase
       def test_html
         assert do
           @decomposer.target?(create_data("<html"))
+        end
+      end
+
+      def test_iso_2022_jp
+        body = "<html><body>こんにちは</body></html>".encode("ISO-2022-JP")
+        assert do
+          @decomposer.target?(create_data(body))
+        end
+      end
+
+      def test_utf_16le
+        body = "<html><body>Hello</body></html>".encode("UTF-16LE")
+        assert do
+          not @decomposer.target?(create_data(body))
+        end
+      end
+
+      def test_text
+        assert do
+          not @decomposer.target?(create_data("Hello"))
         end
       end
     end

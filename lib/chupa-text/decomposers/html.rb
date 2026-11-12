@@ -1,4 +1,4 @@
-# Copyright (C) 2013-2024  Sutou Kouhei <kou@clear-code.com>
+# Copyright (C) 2013-2026  Sutou Kouhei <kou@clear-code.com>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,8 +37,11 @@ module ChupaText
         body = data.body
         return false if body.nil?
 
-        return true if body.start_with?("<!DOCTYPE html ")
-        return true if body.start_with?("<html")
+        # Compare as bytes because body may use an ASCII incompatible
+        # encoding such as ISO-2022-JP.
+        head = body.byteslice(0, 15).b
+        return true if head.start_with?("<!DOCTYPE html ")
+        return true if head.start_with?("<html")
 
         false
       end
